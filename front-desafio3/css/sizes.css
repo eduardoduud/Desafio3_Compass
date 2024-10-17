@@ -1,0 +1,40 @@
+/* Tamanhos */
+.w-full {
+  width: 100%;
+}
+.w-1-3 {
+  width: 33.333333%;
+}
+.w-55 {
+  width: 55px;
+}
+.w-188 {
+  width: 188px;
+}
+.w-381 {
+  width: 381px;
+}
+.h-full {
+  height: 100%;
+}
+.h-55 {
+  height: 55px;
+}
+.h-100 {
+  height: 100px;
+}
+.h-230 {
+  height: 230px;
+}
+.h-270 {
+  height: 270px;
+}
+.h-316 {
+  height: 316px;
+}
+.h-480 {
+  height: 480px;
+}
+.max-w-screen-lg {
+  max-width: 1024px;
+}

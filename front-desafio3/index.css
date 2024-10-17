@@ -1,0 +1,89 @@
+@import "./css/borders.css";
+@import "./css/colors.css";
+@import "./css/flexbox.css";
+@import "./css/fonts.css";
+@import "./css/opacity.css";
+@import "./css/sizes.css";
+@import "./css/spacing.css";
+@import "./css/shadows.css";
+@import "./css/position.css";
+
+/* poppins-regular */
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./src/fonts/poppins/poppins-v21-latin-regular.woff2")
+    format("woff2");
+}
+
+/* poppins-500 */
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: medium;
+  font-weight: 500;
+  src: url("./src/fonts/poppins/poppins-v21-latin-500.woff2") format("woff2");
+}
+
+/* poppins-700 */
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: bold;
+  font-weight: 700;
+  src: url("./src/fonts/poppins/poppins-v21-latin-700.woff2") format("woff2");
+}
+
+/* montserrat-regular */
+@font-face {
+  font-display: swap;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./src/fonts/montserrat/montserrat-v26-latin-regular.woff2")
+    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* montserrat-700 */
+@font-face {
+  font-display: swap;
+  font-family: "Montserrat";
+  font-style: bold;
+  font-weight: 700;
+  src: url("./src/fonts/montserrat/montserrat-v26-latin-700.woff2")
+    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+html {
+  font-family: "Poppins", "Poppins", "sans-serif";
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  display: flex;
+  width: 1440px;
+  justify-content: center;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+input {
+  all: unset;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

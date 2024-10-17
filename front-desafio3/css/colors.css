@@ -1,0 +1,24 @@
+/* Cores de fundo */
+.bg-white {
+  background-color: #ffffff;
+}
+.bg-gray-100 {
+  background-color: #f4f5f7;
+}
+.bg-red-500 {
+  background-color: #ef4444;
+}
+.bg-features {
+  background-color: #faf3ea;
+}
+
+/* Cores do texto */
+.text-white {
+  color: #ffffff;
+}
+.text-black {
+  color: #000000;
+}
+.text-gray-400 {
+  color: rgb(137 137 137);
+}
