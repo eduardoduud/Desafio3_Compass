@@ -13,12 +13,14 @@ const Home: React.FC = () => {
           alt=""
         />
       </div>
-      <section className="bg-white py-4">
-        <h1 className="text-center text-3xl font-bold">Browse The Range</h1>
+      <section className="bg-white py-4 mb-18">
+        <h1 className="text-center text-3xl font-bold mb-12">
+          Browse The Range
+        </h1>
         <Categories />
       </section>
-      <section className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold text-center">Our Products</h1>
+      <section className="container mx-auto px-4 mt-12">
+        <h1 className="text-3xl font-bold text-center">Our Products</h1>
         <ProductList />
       </section>
       <Features />

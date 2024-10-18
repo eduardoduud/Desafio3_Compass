@@ -5,6 +5,9 @@
 .rounded-lg {
   border-radius: 0.5rem; /* 8px */
 }
+.rounded-xl {
+  border-radius: 0.75rem; /* 12px */
+}
 .rounded-full {
   border-radius: 9999px;
 }
