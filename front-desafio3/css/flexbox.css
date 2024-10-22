@@ -14,6 +14,9 @@
 .items-center {
   align-items: center;
 }
+.justify-start {
+  justify-content: start;
+}
 .justify-center {
   justify-content: center;
 }

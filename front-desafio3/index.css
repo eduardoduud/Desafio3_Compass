@@ -60,6 +60,7 @@ html {
   font-family: "Poppins", "Poppins", "sans-serif";
   display: flex;
   justify-content: center;
+  border-width: 0px;
 }
 
 body {

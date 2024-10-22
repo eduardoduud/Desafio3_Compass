@@ -47,7 +47,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <hr className="my-9 w-full border-gray-300 opacity-40" />
+      <hr className="my-9 w-full opacity-40" />
       <span>2023 furniro. All rights reserved</span>
     </footer>
   );

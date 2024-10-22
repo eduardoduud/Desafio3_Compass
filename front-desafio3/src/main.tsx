@@ -6,6 +6,7 @@ import React from "react";
 import Header from "./components/pages/root/header";
 import Footer from "./components/pages/root/footer";
 import Shop from "./components/pages/shop/shop";
+import Product from "./components/pages/product/product";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,11 @@ const router = createBrowserRouter([
   {
     path: "/shop",
     element: <Shop />,
+    //errorElement: <ErrorPage />,
+  },
+  {
+    path: "/products/:id",
+    element: <Product />,
     //errorElement: <ErrorPage />,
   },
 ]);
