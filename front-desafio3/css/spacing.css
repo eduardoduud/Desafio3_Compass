@@ -103,6 +103,10 @@
   padding-left: 4rem; /* 64px */
   padding-right: 4rem; /* 64px */
 }
+.px-24 {
+  padding-left: 6rem; /* 96px */
+  padding-right: 6rem; /* 96px */
+}
 
 .py-1 {
   padding-top: 0.25rem; /* 4px */
@@ -111,6 +115,10 @@
 .py-6 {
   padding-top: 1.5rem; /* 24px */
   padding-bottom: 1.5rem; /* 24px */
+}
+.py-12 {
+  padding-top: 3rem; /* 48px */
+  padding-bottom: 3rem; /* 48px */
 }
 
 .gap-1 {
@@ -135,4 +143,10 @@
 .space-x-2 {
   margin-left: 0.5rem; /* 8px */
   margin-right: 0.5rem; /* 8px */
+}
+.space-y-2 {
+  margin-top: 0.5rem; /* 8px */
+}
+.space-y-4 {
+  margin-top: 1rem; /* 16px */
 }

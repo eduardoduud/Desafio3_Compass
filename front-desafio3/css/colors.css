@@ -8,6 +8,7 @@
 .bg-red-500 {
   background-color: #ef4444;
 }
+
 .bg-features {
   background-color: #faf3ea;
 }
@@ -21,4 +22,7 @@
 }
 .text-gray-400 {
   color: rgb(137 137 137);
+}
+.text-yellow-500 {
+  color: #eab308;
 }
