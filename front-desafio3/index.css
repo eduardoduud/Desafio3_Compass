@@ -56,6 +56,12 @@
     format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-family: "Poppins", "Poppins", "sans-serif";
   display: flex;
@@ -67,6 +73,7 @@ body {
   display: flex;
   width: 1440px;
   justify-content: center;
+  margin: 0px;
 }
 
 a {

@@ -84,7 +84,7 @@ const Product: React.FC = () => {
           />
         </div>
         {/* Detalhes do produto */}
-        <div className="space-y-4">
+        <div className="flex flex-col space-y-4">
           <h1 className="text-3xl font-regular">{product.name}</h1>
           <p className="text-xl font-semibold text-gray-400">
             $ {product.price}
@@ -100,22 +100,29 @@ const Product: React.FC = () => {
           <p className="text-gray-600">{product.description}</p>
           {/* Tamanho e cores */}
           <div className="space-y-2">
-            <div>
-              <span className="font-semibold">Size: </span>
+            <span className="font-semibold">Size </span>
+            <div className="flex flex-row items-center gap-4">
               <button className="border rounded px-3 py-1 m-1">L</button>
             </div>
-
-            <div>
-              <span className="font-semibold">Color: </span>
+            <span className="font-semibold">Color </span>
+            <div className="flex flex-row items-center gap-4">
               <button
-                className={`w-6 h-6 rounded-full border-2 m-1`}
+                className={`w-6 h-6 rounded-full border m-1`}
                 style={{ backgroundColor: "#816DFA" }}
+              />
+              <button
+                className={`w-6 h-6 rounded-full border m-1`}
+                style={{ backgroundColor: "#000000" }}
+              />
+              <button
+                className={`w-6 h-6 rounded-full border m-1`}
+                style={{ backgroundColor: "#B88E2F" }}
               />
             </div>
           </div>
           {/* Botões de quantidade e ações */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center border px-3 py-2">
+            <div className="flex items-center rounded border border-solid border-gray-300 px-3 py-2">
               <button className="text-lg">-</button>
               <input
                 type="text"
@@ -124,10 +131,12 @@ const Product: React.FC = () => {
               />
               <button className="text-lg">+</button>
             </div>
-            <button className="bg-black text-white px-6 py-2 rounded-md">
+            <button className="px-6 py-2 rounded border border-solid border-gray-300">
               Add To Cart
             </button>
-            <button className="border px-6 py-2 rounded-md">Compare</button>
+            <button className="px-6 py-2 rounded border border-solid border-gray-300">
+              Compare
+            </button>
           </div>
         </div>
       </div>
@@ -159,11 +168,9 @@ const Product: React.FC = () => {
       </div>
       {/* Descrição e Informações Adicionais */}
       <div className="mt-8">
-        <div className="flex justify-center space-x-4">
-          <button className="py-2 px-4 text-2xl font-medium">
-            Description
-          </button>
-          <button className="py-2 px-4 text-2xl text-gray-400">
+        <div className="flex justify-center gap-4">
+          <button className="py-2 text-2xl font-medium">Description</button>
+          <button className="py-2 text-2xl text-gray-400">
             Additional Information
           </button>
         </div>
