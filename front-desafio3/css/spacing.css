@@ -95,6 +95,10 @@
   padding-left: 1rem; /* 16px */
   padding-right: 1rem; /* 16px */
 }
+.px-5 {
+  padding-left: 1.25rem; /* 20px */
+  padding-right: 1.25rem; /* 20px */
+}
 .px-12 {
   padding-left: 3rem; /* 48px */
   padding-right: 3rem; /* 48px */
@@ -111,6 +115,10 @@
 .py-1 {
   padding-top: 0.25rem; /* 4px */
   padding-bottom: 0.25rem; /* 4px */
+}
+.py-2-5 {
+  padding-top: 0.625rem; /* 10px */
+  padding-bottom: 0.625rem; /* 10px */
 }
 .py-6 {
   padding-top: 1.5rem; /* 24px */
