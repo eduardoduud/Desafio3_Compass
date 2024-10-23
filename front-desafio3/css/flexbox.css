@@ -2,6 +2,12 @@
 .flex {
   display: flex;
 }
+.inline-flex {
+  display: inline-flex;
+}
+.inline-block {
+  display: inline-block;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -13,6 +19,9 @@
 }
 .items-center {
   align-items: center;
+}
+.items-baseline {
+  align-items: baseline;
 }
 .justify-start {
   justify-content: start;
@@ -44,4 +53,7 @@
 }
 .object-fill {
   object-fit: fill;
+}
+.object-contain {
+  object-fit: contain;
 }

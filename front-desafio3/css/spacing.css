@@ -17,8 +17,20 @@
 .mt-2 {
   margin-top: 0.5rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
 .mt-4 {
   margin-top: 1rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
+}
+.mt-7 {
+  margin-top: 1.75rem;
 }
 .mt-8 {
   margin-top: 2rem;
@@ -91,6 +103,10 @@
   padding-left: 0.5rem; /* 8px */
   padding-right: 0.5rem; /* 8px */
 }
+.px-3 {
+  padding-left: 0.75rem; /* 12px */
+  padding-right: 0.75rem; /* 12px */
+}
 .px-4 {
   padding-left: 1rem; /* 16px */
   padding-right: 1rem; /* 16px */
@@ -98,6 +114,22 @@
 .px-5 {
   padding-left: 1.25rem; /* 20px */
   padding-right: 1.25rem; /* 20px */
+}
+.px-6 {
+  padding-left: 1.5rem; /* 24px */
+  padding-right: 1.5rem;
+}
+.px-7 {
+  padding-left: 1.75rem; /* 28px */
+  padding-right: 1.75rem; /* 28px */
+}
+.px-8 {
+  padding-left: 2rem; /* 32px */
+  padding-right: 2rem; /* 32px */
+}
+.px-10 {
+  padding-left: 2.5rem; /* 40px */
+  padding-right: 2.5rem; /* 40px */
 }
 .px-12 {
   padding-left: 3rem; /* 48px */
@@ -120,6 +152,10 @@
   padding-top: 0.625rem; /* 10px */
   padding-bottom: 0.625rem; /* 10px */
 }
+.py-4 {
+  padding-top: 1.25rem; /* 20px */
+  padding-bottom: 1.25rem; /* 20px */
+}
 .py-6 {
   padding-top: 1.5rem; /* 24px */
   padding-bottom: 1.5rem; /* 24px */
@@ -131,6 +167,12 @@
 
 .gap-1 {
   gap: 0.25rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.gap-3 {
+  gap: 0.75rem;
 }
 .gap-4 {
   gap: 1rem; /* 16px */

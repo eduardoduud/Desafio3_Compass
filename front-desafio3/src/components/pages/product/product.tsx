@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChevronRight, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
@@ -29,11 +29,17 @@ const Product: React.FC = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    undefined,
+  );
+  const [selectedSize, setSelectedSize] = useState("xs");
+
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/products/${productId}`)
       .then((response) => {
         setProduct(response.data);
+        setSelectedImage(response.data.imageLink);
         setLoading(false);
       })
       .catch((error) => {
@@ -56,42 +62,52 @@ const Product: React.FC = () => {
 
   return (
     <div className="container mx-auto py-8">
-      <div className="flex flex-row justify-start px-24 items-center gap-1 bg-features h-100">
-        <span className="text-gray-400">Home</span>
+      <div className="bg-features h-100 flex flex-row items-center justify-start gap-1 px-24">
+        <Link to="/" className="text-gray-400">
+          Home
+        </Link>
         <FaChevronRight />
-        <span className="text-gray-400">Shop</span>
+        <Link to="/shop" className="text-gray-400">
+          Shop
+        </Link>
         <FaChevronRight />
         <span>{product.name}</span>
       </div>
-      <div className="flex justify-center mt-8">
+      <div className="mt-8 flex justify-center">
         {/* Imagens laterais */}
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col gap-4">
           {product.otherImagesLink.map((image, index) => (
-            <img
+            <button
               key={index}
-              src={image}
-              alt={product.name}
-              className="w-full h-auto object-cover border"
-            />
+              className="border-furniro h-20 w-20 overflow-hidden rounded-lg border border-solid"
+            >
+              <img
+                key={index}
+                src={image}
+                alt={product.name}
+                className="bg-button h-full w-full object-cover"
+                onClick={() => setSelectedImage(image)}
+              />
+            </button>
           ))}
         </div>
         {/* Imagem principal */}
         <div className="px-6">
           <img
-            src={product.imageLink}
+            src={selectedImage}
             alt={product.name}
-            className="w-full h-auto object-cover rounded-lg"
+            className="bg-button h-auto w-full rounded-lg object-cover"
           />
         </div>
         {/* Detalhes do produto */}
         <div className="flex flex-col space-y-4">
-          <h1 className="text-3xl font-regular">{product.name}</h1>
+          <h1 className="font-regular text-3xl">{product.name}</h1>
           <p className="text-xl font-semibold text-gray-400">
             $ {product.price}
           </p>
           {/* Avaliação */}
           <div className="flex items-center">
-            <span className="text-yellow-500 text-2xl">
+            <span className="text-2xl text-yellow-500">
               {"★".repeat(4)}
               {"☆"}
             </span>
@@ -99,70 +115,108 @@ const Product: React.FC = () => {
           </div>
           <p className="text-gray-600">{product.description}</p>
           {/* Tamanho e cores */}
-          <div className="space-y-2">
-            <span className="font-semibold">Size </span>
-            <div className="flex flex-row items-center gap-4">
-              <button className="border rounded px-3 py-1 m-1">L</button>
-            </div>
-            <span className="font-semibold">Color </span>
-            <div className="flex flex-row items-center gap-4">
-              <button
-                className={`w-6 h-6 rounded-full border m-1`}
-                style={{ backgroundColor: "#816DFA" }}
-              />
-              <button
-                className={`w-6 h-6 rounded-full border m-1`}
-                style={{ backgroundColor: "#000000" }}
-              />
-              <button
-                className={`w-6 h-6 rounded-full border m-1`}
-                style={{ backgroundColor: "#B88E2F" }}
-              />
+          <span className="mt-4 text-gray-400">Size</span>
+          <div className="flex items-baseline">
+            <div className="mt-3 flex gap-3">
+              <label className="bg-button-selected relative inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border border-solid border-gray-300 text-center text-sm text-white">
+                <input
+                  name="size"
+                  type="radio"
+                  value="L"
+                  checked={selectedSize === "L"}
+                  onChange={() => setSelectedSize("L")}
+                  className="absolute h-7 w-7 opacity-0"
+                />
+                <span>L</span>
+              </label>
+              <label className="bg-button relative inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border border-solid border-gray-300 text-center text-sm">
+                <input
+                  name="size"
+                  type="radio"
+                  value="XL"
+                  checked={selectedSize === "XL"}
+                  onChange={() => setSelectedSize("XL")}
+                  className="absolute h-7 w-7 opacity-0"
+                />
+                <span>XL</span>
+              </label>
+              <label className="bg-button relative inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg border border-solid border-gray-300 text-center text-sm">
+                <input
+                  name="size"
+                  type="radio"
+                  value="XS"
+                  checked={selectedSize === "XS"}
+                  onChange={() => setSelectedSize("XS")}
+                  className="absolute h-7 w-7 opacity-0"
+                />
+                <span>XS</span>
+              </label>
             </div>
           </div>
+          <span className="mt-4 text-gray-400">Color </span>
+          <div className="mt-3 flex flex-row items-center gap-4">
+            <button
+              className={`m-1 h-6 w-6 rounded-full border`}
+              style={{ backgroundColor: "#816DFA" }}
+            />
+            <button
+              className={`m-1 h-6 w-6 rounded-full border`}
+              style={{ backgroundColor: "#000000" }}
+            />
+            <button
+              className={`m-1 h-6 w-6 rounded-full border`}
+              style={{ backgroundColor: "#B88E2F" }}
+            />
+          </div>
           {/* Botões de quantidade e ações */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center rounded border border-solid border-gray-300 px-3 py-2">
-              <button className="text-lg">-</button>
+          <div className="mt-6 flex items-center gap-4">
+            <div className="flex items-center justify-between rounded-lg border border-solid border-gray-300 py-4">
+              <button className="px-3 text-lg">-</button>
               <input
                 type="text"
-                className="w-12 text-center border-none focus:outline-none"
+                className="w-12 border-none text-center focus:outline-none"
                 defaultValue={1}
               />
-              <button className="text-lg">+</button>
+              <button className="px-3 text-lg">+</button>
             </div>
-            <button className="px-6 py-2 rounded border border-solid border-gray-300">
+            <button className="rounded-2xl border border-solid px-12 py-4 font-medium">
               Add To Cart
             </button>
-            <button className="px-6 py-2 rounded border border-solid border-gray-300">
-              Compare
+            <button className="rounded-2xl border border-solid px-12 py-4 font-medium">
+              + Compare
             </button>
           </div>
         </div>
       </div>
       <div className="flex justify-end border-b border-solid border-gray-300">
-        <div className="flex flex-col w-2-5 py-12 text-gray-400 border-t border-solid border-gray-300">
-          <p className="flex m-2 justify-start gap-4">
+        <div className="w-2-5 flex flex-col border-t border-solid border-gray-300 py-12 text-gray-400">
+          <p className="m-2 flex justify-start gap-4">
             <span className="w-91">SKU</span>
             <span>:</span>
             <span>SS001</span>
           </p>
-          <p className="flex m-2 justify-start gap-4">
+          <p className="m-2 flex justify-start gap-4">
             <span className="w-91">Category</span>
             <span>:</span>
             <span>{product.category.name}</span>
           </p>
-          <p className="flex m-2 justify-start gap-4">
+          <p className="m-2 flex justify-start gap-4">
             <span className="w-91">Tags</span>
             <span>:</span>
             <span>Sofa, Chair, Home, Shop</span>
           </p>
-          <p className="flex m-2 justify-start gap-4">
+          <p className="m-2 flex items-center justify-start gap-4">
             <span className="w-91">Share</span>
             <span>:</span>
-            <FaFacebook className="text-black" />
-            <FaLinkedin className="text-black" />
-            <AiFillTwitterCircle className="text-black" />
+            <a href="#">
+              <FaFacebook className="text-black" />
+            </a>
+            <a href="#">
+              <FaLinkedin className="text-black" />
+            </a>
+            <a href="#">
+              <AiFillTwitterCircle className="text-black" />
+            </a>
           </p>
         </div>
       </div>
@@ -175,11 +229,11 @@ const Product: React.FC = () => {
           </button>
         </div>
         <div className="py-4">
-          <p className="py-6 px-24 text-gray-400">{product.largeDescription}</p>
+          <p className="px-24 py-6 text-gray-400">{product.largeDescription}</p>
         </div>
       </div>
-      <section className="container mx-auto px-4 mt-12 border-b border-solid border-gray-300">
-        <h1 className="text-3xl font-bold text-center">Related Products</h1>
+      <section className="container mx-auto mt-12 border-b border-solid border-gray-300 px-4">
+        <h1 className="text-center text-3xl font-bold">Related Products</h1>
         <ProductList />
       </section>
     </div>
