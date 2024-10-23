@@ -26,23 +26,30 @@ const ProductList: React.FC = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-6 mt-6 bg-white py-8">
+    <div className="mt-6 grid grid-cols-4 gap-6 bg-white py-8">
       {products.map((product) => (
         <div key={product.id} className="relative bg-gray-100">
-          {product.discountPercent && (
-            <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded-full">
-              -{product.discountPercent}%
-            </div>
-          )}
+          <div className="absolute right-2 top-2 flex flex-row">
+            {product.isNew && (
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border bg-green-500 text-sm text-white">
+                New
+              </span>
+            )}
+            {product.discountPercent && (
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border bg-red-500 text-sm text-white">
+                -{product.discountPercent}%
+              </span>
+            )}
+          </div>
           <img
             src={product.imageLink}
             alt={product.name}
             className="h-40 w-full object-cover"
           />
-          <div className="p-2 mb-4">
-            <h3 className="font-semibold m-2">{product.name}</h3>
-            <p className="text-gray-400 m-2">{product.description}</p>
-            <span className="font-medium m-2">
+          <div className="mb-4 p-2">
+            <h3 className="m-2 font-semibold">{product.name}</h3>
+            <p className="m-2 text-gray-400">{product.description}</p>
+            <span className="m-2 font-medium">
               $
               {product.price.toLocaleString("id-ID", {
                 style: "currency",
@@ -50,7 +57,7 @@ const ProductList: React.FC = () => {
               })}
             </span>
             {product.discountPrice && (
-              <span className="line-through ml-4 text-gray-400">
+              <span className="ml-4 text-gray-400 line-through">
                 $
                 {product.discountPrice.toLocaleString("id-ID", {
                   style: "currency",
@@ -61,7 +68,7 @@ const ProductList: React.FC = () => {
           </div>
         </div>
       ))}
-      <button className="mt-6 mx-auto block bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+      <button className="mx-auto mt-6 block rounded bg-yellow-500 px-4 py-2 text-white transition hover:bg-yellow-600">
         Show More
       </button>
     </div>
