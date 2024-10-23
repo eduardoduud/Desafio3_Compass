@@ -8,6 +8,12 @@
 .rounded-xl {
   border-radius: 0.75rem; /* 12px */
 }
+.rounded-2xl {
+  border-radius: 1rem; /* 16px */
+}
+.rounded-3xl {
+  border-radius: 1.5rem; /* 24px */
+}
 .rounded-full {
   border-radius: 9999px;
 }
@@ -25,6 +31,9 @@
 }
 .border-blue-500 {
   border-color: #3b82f6;
+}
+.border-furniro {
+  border-color: #f9f1e7;
 }
 
 .border-solid {

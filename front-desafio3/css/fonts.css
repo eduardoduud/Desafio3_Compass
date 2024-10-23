@@ -30,7 +30,7 @@
   font-weight: 700;
 }
 .font-medium {
-  font-weight: 525;
+  font-weight: 500;
 }
 .font-regular {
   font-weight: 400;
@@ -38,6 +38,18 @@
 
 .text-center {
   text-align: center;
+}
+.align-baseline {
+  vertical-align: baseline;
+}
+.align-top {
+  vertical-align: top;
+}
+.align-middle {
+  vertical-align: middle;
+}
+.align-bottom {
+  vertical-align: bottom;
 }
 
 .truncate {
