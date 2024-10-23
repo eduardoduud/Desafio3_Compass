@@ -40,6 +40,11 @@
   text-align: center;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .line-through {
   text-decoration: line-through;
 }
