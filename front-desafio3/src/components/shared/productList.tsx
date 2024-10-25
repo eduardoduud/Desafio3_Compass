@@ -79,9 +79,6 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
           </div>
         </div>
       ))}
-      <button className="mx-auto mt-6 block rounded bg-yellow-500 px-4 py-2 text-white transition hover:bg-yellow-600">
-        Show More
-      </button>
     </div>
   );
 };
