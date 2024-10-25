@@ -7,16 +7,21 @@ import Header from "./components/pages/root/header";
 import Footer from "./components/pages/root/footer";
 import Shop from "./components/pages/shop/shop";
 import Product from "./components/pages/product/product";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <Home filterDiscounted={true} pagination={{ limit: 8, offset: 0 }} />
+    ),
     //errorElement: <ErrorPage />,
   },
   {
     path: "/shop",
-    element: <Shop />,
+    element: (
+      <Shop pagination={{ limit: 16, offset: 0 }} filterDiscounted={true} />
+    ),
     //errorElement: <ErrorPage />,
   },
   {
@@ -26,10 +31,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Header />
-    <RouterProvider router={router} />
-    <Footer />
-  </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <Header />
+      <RouterProvider router={router} />
+      <Footer />
+    </QueryClientProvider>
+  </React.StrictMode>,
 );

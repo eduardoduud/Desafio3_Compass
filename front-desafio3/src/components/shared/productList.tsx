@@ -1,34 +1,16 @@
 // src/components/ProductList.tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { BsShareFill } from "react-icons/bs";
 import { GoArrowSwitch } from "react-icons/go";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { Product } from "../../types/product";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  discountPrice?: number;
-  discountPercent?: number;
-  imageLink?: string;
-  isNew?: boolean;
-  createdDate: string;
-  updatedDate: string;
+interface ProductListProps {
+  products: Product[];
 }
 
-const ProductList: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/products")
-      .then((response) => setProducts(response.data))
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
-
+const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
     <div className="mt-6 grid grid-cols-4 gap-6 bg-white py-8">
       {products.map((product) => (
