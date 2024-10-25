@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Category } from "../../types/category";
 
-const Categories: React.FC<Category> = () => {
+const Categories: React.FC = () => {
   const [categories, setProducts] = useState<Category[]>([]);
 
   useEffect(() => {

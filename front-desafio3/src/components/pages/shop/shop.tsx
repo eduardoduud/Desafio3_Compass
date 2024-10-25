@@ -21,6 +21,7 @@ const Shop: React.FC<ProductListProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
 
+  //todo: revisar o uso do useQuery do react-query
   const {
     data: products,
     isLoading,
