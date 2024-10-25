@@ -1,4 +1,3 @@
-// src/components/ProductList.tsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsShareFill } from "react-icons/bs";
@@ -9,6 +8,7 @@ import { Product } from "../../types/product";
 interface ProductListProps {
   products: Product[];
 }
+//todo: mover a interface pra /types
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   return (
@@ -54,6 +54,9 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
           </div>
           <div className="hover-content">
             <Link
+              /* todo: pesquisar como fazer o link scrollar a página até o topo
+            solução mais rápida: trocar pra tag <a> 
+            solução 2: button com navigate*/
               to={`/products/${product.id}`}
               className="details-button w-1-2 text-card-button py-2-5 mb-4 flex justify-center bg-white px-5"
             >

@@ -36,6 +36,7 @@ const Pagination: React.FC<PaginationProps> = ({
         Prev
       </button>
       {pages.map((page) => (
+        //todo: trocou de página = scrolla até o filter
         <button
           key={page}
           onClick={() => handlePageChange(page)}

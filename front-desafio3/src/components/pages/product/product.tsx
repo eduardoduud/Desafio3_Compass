@@ -46,6 +46,7 @@ const Product: React.FC = () => {
         setError(error.message);
         setLoading(false);
       });
+    //todo: buscar produtos da mesma categoria do produto principal da pagina para popular a seção de produtos relacionados
   }, [productId]);
 
   if (loading) {
@@ -234,7 +235,7 @@ const Product: React.FC = () => {
       </div>
       <section className="container mx-auto mt-12 border-b border-solid border-gray-300 px-4">
         <h1 className="text-center text-3xl font-bold">Related Products</h1>
-        <ProductList products={[]} pagination={{ limit: 4, offset: 0 }} />
+        <ProductList products={[]} />
       </section>
     </div>
   );
