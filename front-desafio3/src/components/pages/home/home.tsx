@@ -18,18 +18,6 @@ const Home: React.FC = () => {
           pagination: { limit: 8, offset: 0 },
           sortOrder: "asc",
         };
-        // const queryParams: any = {};
-
-        // if (filters.filterDiscounted) {
-        //   queryParams.discountPrice = true;
-        // }
-
-        // if (filters.pagination) {
-        //   queryParams.pagination = {
-        //     limit: filters.pagination.limit,
-        //     offset: 0,
-        //   };
-        // }
 
         const response = await axios.get("http://localhost:3000/api/products", {
           params: filters,
@@ -40,7 +28,7 @@ const Home: React.FC = () => {
 
     fetchProducts();
     return () => {
-      isMounted = false; // No state change here
+      isMounted = false;
     };
   }, []);
   return (
@@ -66,5 +54,5 @@ const Home: React.FC = () => {
     </main>
   );
 };
-//ADICIONAR BOTAO DE SHOW MORE QUE VAI NAVEGAR PARA SHOP
+//TODO: ADICIONAR BOTAO DE SHOW MORE QUE VAI NAVEGAR PARA SHOP
 export default Home;
