@@ -10,7 +10,7 @@ export class ProductService {
     filterDiscounted?: boolean,
     pagination?: { limit: number; offset: number },
     sortOrder?: 'asc' | 'desc',
-    categoryId?: number, // adicionado parâmetro para categoria
+    categoryId?: number,
   ): Promise<Product[]> {
     const where: any = {};
 
@@ -19,7 +19,7 @@ export class ProductService {
     }
 
     if (categoryId) {
-      where.categoryId = categoryId; // adiciona filtro por categoria
+      where.categoryId = categoryId;
     }
 
     const products = await this.prisma.product.findMany({
@@ -34,5 +34,16 @@ export class ProductService {
 
   async getProductById(id: number): Promise<Product> {
     return this.prisma.product.findUnique({ where: { id } });
+  }
+  async createProduct(data: any): Promise<Product> {
+    return this.prisma.product.create({ data });
+  }
+
+  async updateProduct(id: number, data: any): Promise<Product> {
+    return this.prisma.product.update({ where: { id }, data });
+  }
+
+  async deleteProduct(id: number): Promise<Product> {
+    return this.prisma.product.delete({ where: { id } });
   }
 }
