@@ -3,36 +3,46 @@ import ProductList from "../../shared/productList";
 import Categories from "../../shared/categories";
 import Features from "../../shared/features";
 import { Product } from "../../../types/product";
-import { ProductListProps } from "../../../types/productProps";
+import { FilterProps } from "../../../types/filterProps";
 import axios from "axios";
 
-const Home: React.FC<ProductListProps> = ({ filterDiscounted, pagination }) => {
+const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProducts = async () => {
-      try {
-        const queryParams: any = {};
+      if (isMounted) {
+        const filters: FilterProps = {
+          filterDiscounted: true,
+          pagination: { limit: 8, offset: 0 },
+          sortOrder: "asc",
+        };
+        // const queryParams: any = {};
 
-        if (filterDiscounted) {
-          queryParams.discountPrice = true;
-        }
+        // if (filters.filterDiscounted) {
+        //   queryParams.discountPrice = true;
+        // }
 
-        if (pagination) {
-          queryParams.pagination = pagination;
-        }
+        // if (filters.pagination) {
+        //   queryParams.pagination = {
+        //     limit: filters.pagination.limit,
+        //     offset: 0,
+        //   };
+        // }
 
         const response = await axios.get("http://localhost:3000/api/products", {
-          params: queryParams,
+          params: filters,
         });
         setProducts(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
       }
     };
 
     fetchProducts();
-  }, [filterDiscounted, pagination]);
+    return () => {
+      isMounted = false; // No state change here
+    };
+  }, []);
   return (
     <main className="min-h-screen bg-gray-50">
       <div>
@@ -46,7 +56,7 @@ const Home: React.FC<ProductListProps> = ({ filterDiscounted, pagination }) => {
         <h1 className="mb-12 text-center text-3xl font-bold">
           Browse The Range
         </h1>
-        <Categories id={0} name={""} imageLink={""} />
+        <Categories />
       </section>
       <section className="container mx-auto mt-12 px-4">
         <h1 className="text-center text-3xl font-bold">Our Products</h1>
@@ -56,5 +66,5 @@ const Home: React.FC<ProductListProps> = ({ filterDiscounted, pagination }) => {
     </main>
   );
 };
-
+//ADICIONAR BOTAO DE SHOW MORE QUE VAI NAVEGAR PARA SHOP
 export default Home;

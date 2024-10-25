@@ -12,9 +12,10 @@ export class ProductController {
       discountPrice?: string;
       pagination?: { limit: string; offset: string };
       order?: string;
+      category?: string;
     },
   ) {
-    const { discountPrice, pagination, order } = query;
+    const { discountPrice, pagination, order, category } = query;
 
     const isFilterDiscounted = discountPrice === 'true';
 
@@ -23,10 +24,13 @@ export class ProductController {
     const limit = pagination ? parseInt(pagination.limit) : undefined;
     const offset = pagination ? parseInt(pagination.offset) : undefined;
 
+    const categoryId = category ? parseInt(category) : undefined;
+
     const products = await this.productService.getProducts(
       isFilterDiscounted,
       { limit, offset },
       sortOrder,
+      categoryId,
     );
 
     return products;
