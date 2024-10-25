@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Category } from "../../types/category";
 
-interface Category {
-  id: number;
-  name: string;
-  imageLink: string;
-}
-
-const Category: React.FC = () => {
+const Categories: React.FC<Category> = () => {
   const [categories, setProducts] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -22,12 +17,12 @@ const Category: React.FC = () => {
       {categories.map((category) => (
         <div
           key={category.id}
-          className="flex flex-wrap justify-center w-381 h-480 rounded-lg"
+          className="w-381 h-480 flex flex-wrap justify-center rounded-lg"
         >
           <img
             src={category.imageLink}
             alt={category.name}
-            className="w-full object-fill rounded-xl"
+            className="w-full rounded-xl object-fill"
           />
           <h3 className="mt-4 font-semibold">{category.name}</h3>
         </div>
@@ -36,4 +31,4 @@ const Category: React.FC = () => {
   );
 };
 
-export default Category;
+export default Categories;

@@ -234,7 +234,7 @@ const Product: React.FC = () => {
       </div>
       <section className="container mx-auto mt-12 border-b border-solid border-gray-300 px-4">
         <h1 className="text-center text-3xl font-bold">Related Products</h1>
-        <ProductList />
+        <ProductList products={[]} pagination={{ limit: 4, offset: 0 }} />
       </section>
     </div>
   );
