@@ -12,16 +12,12 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Home filterDiscounted={true} pagination={{ limit: 8, offset: 0 }} />
-    ),
+    element: <Home />,
     //errorElement: <ErrorPage />,
   },
   {
     path: "/shop",
-    element: (
-      <Shop pagination={{ limit: 16, offset: 0 }} filterDiscounted={true} />
-    ),
+    element: <Shop />,
     //errorElement: <ErrorPage />,
   },
   {

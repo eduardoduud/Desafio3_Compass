@@ -4,13 +4,14 @@ import Features from "../../shared/features";
 import { FaChevronRight } from "react-icons/fa";
 import Filter from "../../shared/filter";
 import Pagination from "../../shared/pagination";
-import { ProductListProps } from "../../../types/productProps";
+import { FilterProps } from "../../../types/filterProps";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 
-const Shop: React.FC<ProductListProps> = ({
+const Shop: React.FC<FilterProps> = ({
   filterDiscounted,
-  pagination,
+  pagination = { limit: 16, offset: 0 },
   sortOrder,
 }) => {
   const styles: React.CSSProperties = {
@@ -19,20 +20,24 @@ const Shop: React.FC<ProductListProps> = ({
     backgroundPosition: "center",
   };
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
   //todo: revisar o uso do useQuery do react-query
-  const {
-    data: products,
-    isLoading,
-    isError,
-  } = useQuery(
-    ["products", filterDiscounted, pagination, sortOrder, currentPage],
+  const { data: products } = useQuery(
+    [
+      "products",
+      filterDiscounted,
+      pagination,
+      sortOrder,
+      currentPage,
+      category,
+    ],
     async () => {
-      const queryParams: any = {};
+      const queryParams: FilterProps = {};
 
       if (filterDiscounted) {
-        queryParams.discountPrice = true;
+        queryParams.filterDiscounted = true;
       }
 
       if (pagination) {
@@ -43,8 +48,13 @@ const Shop: React.FC<ProductListProps> = ({
       }
 
       if (sortOrder) {
-        queryParams.order = sortOrder;
+        queryParams.sortOrder = sortOrder;
       }
+
+      if (category) {
+        queryParams.category = category;
+      }
+
       const response = await axios.get("http://localhost:3000/api/products", {
         params: queryParams,
       });
