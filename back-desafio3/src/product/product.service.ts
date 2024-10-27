@@ -7,69 +7,12 @@ import { Filters } from 'src/teste/filters';
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // async getProducts(
-  //   filterDiscounted?: boolean,
-  //   pagination?: { limit: number; offset: number },
-  //   sortOrder?: 'asc' | 'desc',
-  //   categoryId?: number,
-  // ): Promise<Product[]> {
-  //   const where: any = {};
-
-  //   if (filterDiscounted) {
-  //     where.discountPrice = { not: null };
-  //   }
-
-  //   if (categoryId) {
-  //     where.categoryId = categoryId;
-  //   }
-
-  //   const products = await this.prisma.product.findMany({
-  //     where,
-  //     skip: pagination?.offset,
-  //     take: pagination?.limit,
-  //     orderBy: sortOrder === 'asc' ? { price: 'asc' } : { price: 'desc' },
-  //   });
-
-  //   return products;
-  // }
-
-  // async getProducts(filters: Filters): Promise<Product[]> {
-  //   const where = {
-  //     categoryId: {
-  //       in: filters.category,
-  //     },
-  //     skip: filters.pagination.offset,
-  //     take: filters.pagination.limit,
-  //     orderBy: { price: filters.sortOrder },
-  //     discountPrice: filters.filterDiscounted ? { not: null } : [],
-  //     totalItems: filters.totalItems, //TODO: REMOVER ESTA DESGRAÇA DAQUI
-  //   };
-  // if (filterDiscounted) {
-  //   where.discountPrice = { not: null };
-  // }
-
-  // if (categoryId) {
-  //   where.categoryId = categoryId;
-  // }
-
-  // const products = await this.prisma.product.findMany({
-  //   where,
-  //   // skip: pagination?.offset,
-  //   // take: pagination?.limit,
-  //   // orderBy: sortOrder === 'asc' ? { price: 'asc' } : { price: 'desc' },
-  // });
-
-  //   const products = await this.prisma.product.findMany({ where });
-
-  //   return products;
-  // }
-
   async getProducts(filters: Filters): Promise<Product[]> {
     const where: any = {
       categoryId: {
         in: filters.category,
       },
-    }; //talvvez aqui debugar
+    };
 
     if (filters.filterDiscounted) {
       where.discountPrice = { not: null };

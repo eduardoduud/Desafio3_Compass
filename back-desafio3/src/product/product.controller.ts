@@ -11,32 +11,6 @@ export class ProductController {
     @Query()
     filters: Filters,
   ) {
-    //   @Query()
-    //   query: {
-    //     discountPrice?: string;
-    //     pagination: { limit: string; offset: string };
-    //     order: string;
-    //     category: number[];
-    //     totalItems: number;
-    //   },
-    // ) {
-    // const { discountPrice, pagination, order, category, totalItems } = query;
-
-    // const isFilterDiscounted = discountPrice === 'true';
-
-    // const sortOrder = order === 'asc' ? 'asc' : 'desc';
-
-    // const limit = pagination ? parseInt(pagination.limit) : undefined;
-    // const offset = pagination ? parseInt(pagination.offset) : undefined;
-
-    // const categoryId = category ? parseInt(category) : undefined;
-
-    // const products = await this.productService.getProducts(
-    //   isFilterDiscounted,
-    //   pagination,
-    //   sortOrder,
-    //   categoryId,
-    // );
     this.formatFilter(filters);
     const products = await this.productService.getProducts(filters);
     return products;
