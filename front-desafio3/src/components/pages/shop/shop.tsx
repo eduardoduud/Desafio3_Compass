@@ -7,6 +7,7 @@ import Pagination from "../../shared/pagination";
 import { FilterProps } from "../../../types/filterProps";
 import axios from "axios";
 import { useSearchParams, useLocation } from "react-router-dom";
+import GridLoader from "react-spinners/GridLoader";
 
 const Shop: React.FC<FilterProps> = () => {
   const styles: React.CSSProperties = {
@@ -64,7 +65,7 @@ const Shop: React.FC<FilterProps> = () => {
 
     if (selectedFilters) {
       params.set("sortOrder", selectedFilters.sortOrder ?? "asc");
-      if (selectedFilters?.category.length > 0) {
+      if (selectedFilters.category && selectedFilters.category.length > 0) {
         params.set("category", selectedFilters.category.join(","));
       } else {
         params.delete("category");
@@ -125,7 +126,9 @@ const Shop: React.FC<FilterProps> = () => {
       />
       <main className="container mx-auto mt-8 px-4">
         {isLoading ? (
-          <p>Loading...</p>
+          <div className="flex min-h-screen w-screen items-center justify-center">
+            <GridLoader size={30} color="#eab308" />
+          </div>
         ) : Array.isArray(products) && products.length > 0 ? (
           <ProductList products={products} />
         ) : (
