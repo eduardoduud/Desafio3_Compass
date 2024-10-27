@@ -6,7 +6,7 @@ import Filter from "../../shared/filter";
 import Pagination from "../../shared/pagination";
 import { FilterProps } from "../../../types/filterProps";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 const Shop: React.FC<FilterProps> = () => {
   const styles: React.CSSProperties = {
@@ -16,9 +16,11 @@ const Shop: React.FC<FilterProps> = () => {
   };
   const [currentPage, setCurrentPage] = useState(1);
   const [, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const initialCategory = location.state?.category || [];
   const [selectedFilters, setSelectedFilters] = useState<FilterProps>({
     sortOrder: "asc",
-    category: [],
+    category: initialCategory ? [initialCategory] : [],
     limit: 16,
     offset: 0,
   });
@@ -26,6 +28,7 @@ const Shop: React.FC<FilterProps> = () => {
     { name: string; category: number }[]
   >([]);
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,7 +50,7 @@ const Shop: React.FC<FilterProps> = () => {
 
         setProducts(response.data);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        setError((error as Error).message);
       } finally {
         setIsLoading(false);
       }
@@ -60,8 +63,8 @@ const Shop: React.FC<FilterProps> = () => {
     const params = new URLSearchParams();
 
     if (selectedFilters) {
-      params.set("sortOrder", selectedFilters.sortOrder);
-      if (selectedFilters.category.length > 0) {
+      params.set("sortOrder", selectedFilters.sortOrder ?? "asc");
+      if (selectedFilters?.category.length > 0) {
         params.set("category", selectedFilters.category.join(","));
       } else {
         params.delete("category");
@@ -98,6 +101,10 @@ const Shop: React.FC<FilterProps> = () => {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="">

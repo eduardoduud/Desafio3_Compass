@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaChevronRight, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
@@ -8,11 +8,14 @@ import { Product } from "../../../types/product";
 
 const ProductPage: React.FC = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const productId = params.id;
 
   const [product, setProduct] = useState<Product>();
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [error, setError] = useState(null);
+  const [offset, setOffset] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
@@ -35,7 +38,7 @@ const ProductPage: React.FC = () => {
         );
         setRelatedProducts(relatedResponse.data);
       } catch (error) {
-        setError(error.message);
+        setError((error as Error).message);
       } finally {
         setLoading(false);
       }
@@ -43,6 +46,32 @@ const ProductPage: React.FC = () => {
 
     fetchProduct();
   }, [productId]);
+
+  const loadMoreProducts = async (categoryId: number, newOffset: number) => {
+    try {
+      const relatedResponse = await axios.get(
+        `http://localhost:3000/api/products?limit=4&offset=${newOffset}&order=asc&category[]=${categoryId}`,
+      );
+      setRelatedProducts((prevProducts) => [
+        ...prevProducts,
+        ...relatedResponse.data,
+      ]);
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
+  const handleShowMore = () => {
+    if (product && product.category && product.category.id !== undefined) {
+      if (clickCount === 1) {
+        navigate(`/shop`, { state: { category: product.category.id } });
+      } else {
+        setClickCount(clickCount + 1);
+        setOffset((prevOffset) => prevOffset + 4);
+        loadMoreProducts(product.category.id, offset + 4);
+      }
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -232,8 +261,11 @@ const ProductPage: React.FC = () => {
         <h1 className="text-center text-3xl font-bold">Related Products</h1>
         <ProductList products={relatedProducts} />
         <div className="my-9 flex w-full items-center justify-center">
-          <button className="border-golden text-card-button border border-solid px-12 py-2">
-            <a href="/shop">Show More</a>
+          <button
+            className="border-golden text-card-button border border-solid px-12 py-2"
+            onClick={handleShowMore}
+          >
+            Show More
           </button>
         </div>
       </section>
