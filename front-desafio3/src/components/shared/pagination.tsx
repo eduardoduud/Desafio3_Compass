@@ -28,7 +28,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="my-9 flex items-center justify-center gap-4">
       <button
         className="bg-button flex h-12 w-14 items-center justify-center rounded-lg border-solid border-none bg-gray-300"
         onClick={() => handlePreviousPage()}

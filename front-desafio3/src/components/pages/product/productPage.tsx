@@ -5,6 +5,7 @@ import { FaChevronRight, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import ProductList from "../../shared/productList";
 import { Product } from "../../../types/product";
+import GridLoader from "react-spinners/GridLoader";
 
 const ProductPage: React.FC = () => {
   const params = useParams();
@@ -74,7 +75,11 @@ const ProductPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex min-h-screen w-screen items-center justify-center">
+        <GridLoader size={30} color="#eab308" />
+      </div>
+    );
   }
 
   if (error) {
