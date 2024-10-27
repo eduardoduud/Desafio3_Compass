@@ -1,5 +1,5 @@
 export interface FilterProps {
-  category?: number[];
+  category: number[];
   filterDiscounted?: boolean;
   limit: number;
   offset: number;
