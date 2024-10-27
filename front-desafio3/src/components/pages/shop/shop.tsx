@@ -65,7 +65,7 @@ const Shop: React.FC<FilterProps> = () => {
 
     if (selectedFilters) {
       params.set("sortOrder", selectedFilters.sortOrder ?? "asc");
-      if (selectedFilters?.category.length > 0) {
+      if (selectedFilters.category && selectedFilters.category.length > 0) {
         params.set("category", selectedFilters.category.join(","));
       } else {
         params.delete("category");

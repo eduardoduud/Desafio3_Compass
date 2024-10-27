@@ -22,7 +22,7 @@ const Filter: React.FC<{
 
   const handleDropdownFilterChange = (category: number) => {
     setFilters((prevFilters) => {
-      const updatedCategory = prevFilters.category.includes(category)
+      const updatedCategory = prevFilters.category?.includes(category)
         ? prevFilters.category.filter((cat) => cat !== category)
         : [...prevFilters.category, category];
 

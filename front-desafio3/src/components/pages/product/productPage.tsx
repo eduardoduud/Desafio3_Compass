@@ -106,7 +106,7 @@ const ProductPage: React.FC = () => {
       <div className="mt-8 flex justify-center">
         {/* Imagens laterais */}
         <div className="flex flex-col gap-4">
-          {product.otherImagesLink.map((image, index) => (
+          {product.otherImagesLink?.map((image, index) => (
             <button
               key={index}
               className="border-furniro h-20 w-20 overflow-hidden rounded-lg border border-solid"
