@@ -15,7 +15,8 @@ const Home: React.FC = () => {
       if (isMounted) {
         const filters: FilterProps = {
           filterDiscounted: true,
-          pagination: { limit: 8, offset: 0 },
+          limit: 8,
+          offset: 0,
           sortOrder: "asc",
         };
 

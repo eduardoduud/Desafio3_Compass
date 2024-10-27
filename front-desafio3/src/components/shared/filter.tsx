@@ -1,30 +1,116 @@
+import { useState } from "react";
 import { getIconPath } from "../utils/getIcon";
 import { RxDividerVertical } from "react-icons/rx";
+import { HiOutlineX } from "react-icons/hi";
+import { FilterProps } from "../../types/filterProps";
 
-const Filter: React.FC = () => {
+const Filter: React.FC<{
+  categoryOptions: { name: string; category: number }[];
+  onFiltersChange: (filters: FilterProps) => void;
+}> = ({ categoryOptions, onFiltersChange }) => {
+  const [isFilterDropdownVisible, setFilterDropdownVisible] = useState(false);
+  const [filters, setFilters] = useState<FilterProps>({
+    limit: 16,
+    offset: 0,
+    sortOrder: "asc",
+    category: [],
+  });
+
+  const toggleDropdown = () => {
+    setFilterDropdownVisible(!isFilterDropdownVisible);
+  };
+
+  const handleDropdownFilterChange = (category: number) => {
+    setFilters((prevFilters) => {
+      const updatedCategory = prevFilters.category.includes(category)
+        ? prevFilters.category.filter((cat) => cat !== category)
+        : [...prevFilters.category, category];
+
+      const updatedFilters = { ...prevFilters, category: updatedCategory };
+      onFiltersChange(updatedFilters);
+      return updatedFilters;
+    });
+  };
+
+  const handleTotalItensChange = (limit: number) => {
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+      updatedFilters.limit = limit;
+      onFiltersChange(updatedFilters);
+      return updatedFilters;
+    });
+  };
+
+  const handleSortOrderChange = (sortOrder: string) => {
+    setFilters((prevFilters) => {
+      const updatedFilters = { ...prevFilters, sortOrder };
+      onFiltersChange(updatedFilters);
+      return updatedFilters;
+    });
+  };
+
+  const handleApplyFilters = () => {
+    onFiltersChange(filters);
+  };
+
   return (
-    <div className="flex flex-row justify-between items-center bg-features px-16 h-100">
+    <div className="bg-features h-100 flex flex-row items-center justify-between px-16">
       <div className="flex flex-row gap-4">
         <img src={getIconPath("filterToggle")} alt="" />
-        <span>Filter</span>
+        <span className="cursor-pointer" onClick={toggleDropdown}>
+          Filter
+        </span>
         <img src={getIconPath("filterDots")} alt="" />
         <img src={getIconPath("filterIdk")} alt="" />
         <RxDividerVertical />
         <span>Showing 1-16 of 32 results</span>
       </div>
+      {/* Dropdown para filtros */}
+      {isFilterDropdownVisible && (
+        <div className="absolute z-10 mt-2 w-64 rounded bg-white p-4 shadow-lg">
+          <HiOutlineX onClick={toggleDropdown} />
+          <h3 className="mb-2 font-semibold">Select Filters</h3>
+          {categoryOptions.map((option) => (
+            <label
+              key={option.category}
+              className="mb-2 flex items-center gap-2"
+            >
+              <input
+                type="checkbox"
+                checked={filters.category.includes(option.category)}
+                onChange={() => handleDropdownFilterChange(option.category)}
+                className="h-5 w-5 border border-solid border-gray-300"
+              />
+              <span>{option.name}</span>
+            </label>
+          ))}
+          <button
+            className="bg-button flex items-center justify-center rounded-lg border-solid border-none bg-gray-300"
+            onClick={() => handleApplyFilters()}
+          >
+            <span>Apply Filters</span>
+          </button>
+        </div>
+      )}
       <div className="flex flex-row items-center justify-end gap-4">
         <span>Show</span>
         <input
-          className="bg-white text-center h-55 w-55"
+          className="h-55 w-55 bg-white text-center"
           type="number"
-          placeholder="16"
+          value={filters.limit}
+          onChange={(e) => handleTotalItensChange(parseInt(e.target.value))}
         />
-        <span>Short by</span>
-        <input
-          className="bg-white text-center h-55 w-188"
-          type="text"
-          placeholder="Default"
-        />
+        <span>Sort by</span>
+        <label key="sortOrder" className="">
+          <select
+            onChange={(e) => handleSortOrderChange(e.target.value)}
+            name="sortOrder"
+            id="sortOrder"
+          >
+            <option value="asc">Ascendent</option>
+            <option value="desc">Descendent</option>
+          </select>
+        </label>
       </div>
     </div>
   );

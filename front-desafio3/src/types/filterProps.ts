@@ -1,6 +1,7 @@
 export interface FilterProps {
-  category?: string;
+  category?: number[];
   filterDiscounted?: boolean;
-  pagination?: { limit: number; offset: number };
-  sortOrder?: "asc" | "desc";
+  limit: number;
+  offset: number;
+  sortOrder?: string;
 }

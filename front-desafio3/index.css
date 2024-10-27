@@ -87,7 +87,7 @@ button {
   cursor: pointer;
 }
 
-input {
+input[type="radio"] {
   all: unset;
 }
 

@@ -4,28 +4,14 @@ import { useState, useEffect } from "react";
 import { FaChevronRight, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import ProductList from "../../shared/productList";
+import { Product } from "../../../types/product";
 
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  category: Category;
-  largeDescription: string;
-  imageLink?: string;
-  otherImagesLink: string[];
-  price: number;
-}
-
-const Product: React.FC = () => {
+const ProductPage: React.FC = () => {
   const params = useParams();
   const productId = params.id;
 
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<Product>();
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -35,18 +21,28 @@ const Product: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState("xs");
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/products/${productId}`)
-      .then((response) => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/products/${productId}`,
+        );
         setProduct(response.data);
         setSelectedImage(response.data.imageLink);
-        setLoading(false);
-      })
-      .catch((error) => {
+
+        // Buscar produtos da mesma categoria
+        const categoryId = response.data.category.id; // Assumindo que o id da categoria está disponível
+        const relatedResponse = await axios.get(
+          `http://localhost:3000/api/products?limit=4&offset=0&order=asc&category[]=${categoryId}`,
+        );
+        setRelatedProducts(relatedResponse.data);
+      } catch (error) {
         setError(error.message);
+      } finally {
         setLoading(false);
-      });
-    //todo: buscar produtos da mesma categoria do produto principal da pagina para popular a seção de produtos relacionados
+      }
+    };
+
+    fetchProduct();
   }, [productId]);
 
   if (loading) {
@@ -235,10 +231,15 @@ const Product: React.FC = () => {
       </div>
       <section className="container mx-auto mt-12 border-b border-solid border-gray-300 px-4">
         <h1 className="text-center text-3xl font-bold">Related Products</h1>
-        <ProductList products={[]} />
+        <ProductList products={relatedProducts} />
+        <div className="my-9 flex w-full items-center justify-center">
+          <button className="border-golden text-card-button border border-solid px-12 py-2">
+            <a href="/shop">Show More</a>
+          </button>
+        </div>
       </section>
     </div>
   );
 };
 
-export default Product;
+export default ProductPage;
