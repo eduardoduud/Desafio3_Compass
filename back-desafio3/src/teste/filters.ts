@@ -1,7 +1,7 @@
-export interface FilterProps {
+export interface Filters {
   category?: number[];
   filterDiscounted?: boolean;
   limit: number;
   offset: number;
-  sortOrder?: string;
+  sortOrder: 'asc' | 'desc';
 }

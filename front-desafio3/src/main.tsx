@@ -6,7 +6,7 @@ import React from "react";
 import Header from "./components/pages/root/header";
 import Footer from "./components/pages/root/footer";
 import Shop from "./components/pages/shop/shop";
-import Product from "./components/pages/product/product";
+import ProductPage from "./components/pages/product/productPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/products/:id",
-    element: <Product />,
+    element: <ProductPage />,
     //todo: errorElement: <ErrorPage />,
   },
 ]);
