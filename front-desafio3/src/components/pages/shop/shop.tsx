@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductList from "../../shared/productList";
 import Features from "../../shared/features";
 import { FaChevronRight } from "react-icons/fa";
@@ -6,65 +6,94 @@ import Filter from "../../shared/filter";
 import Pagination from "../../shared/pagination";
 import { FilterProps } from "../../../types/filterProps";
 import axios from "axios";
-import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 
-const Shop: React.FC<FilterProps> = ({
-  filterDiscounted,
-  pagination = { limit: 16, offset: 0 },
-  sortOrder,
-}) => {
+const Shop: React.FC<FilterProps> = () => {
   const styles: React.CSSProperties = {
     backgroundImage: `url('src/assets/images/shopHero.svg')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchParams] = useSearchParams();
-  const category = searchParams.get("category");
+  const [, setSearchParams] = useSearchParams();
+  const [selectedFilters, setSelectedFilters] = useState<FilterProps>({
+    sortOrder: "asc",
+    category: [],
+    limit: 16,
+    offset: 0,
+  });
+  const [categoryOptions, setCategoryOptions] = useState<
+    { name: string; category: number }[]
+  >([]);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (!selectedFilters) return;
 
-  //todo: revisar o uso do useQuery do react-query
-  const { data: products } = useQuery(
-    [
-      "products",
-      filterDiscounted,
-      pagination,
-      sortOrder,
-      currentPage,
-      category,
-    ],
-    async () => {
-      const queryParams: FilterProps = {};
+      setIsLoading(true);
 
-      if (filterDiscounted) {
-        queryParams.filterDiscounted = true;
-      }
-
-      if (pagination) {
-        queryParams.pagination = {
-          limit: pagination.limit,
-          offset: (currentPage - 1) * pagination.limit,
+      try {
+        const queryParams = {
+          sortOrder: selectedFilters.sortOrder,
+          category: selectedFilters.category,
+          limit: selectedFilters.limit,
+          offset: (currentPage - 1) * selectedFilters.limit,
         };
+
+        const response = await axios.get("http://localhost:3000/api/products", {
+          params: queryParams,
+        });
+
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedFilters, currentPage, selectedFilters?.limit]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (selectedFilters) {
+      params.set("sortOrder", selectedFilters.sortOrder);
+      if (selectedFilters.category.length > 0) {
+        params.set("category", selectedFilters.category.join(","));
+      } else {
+        params.delete("category");
       }
 
-      if (sortOrder) {
-        queryParams.sortOrder = sortOrder;
-      }
+      setSearchParams(params);
+    }
+  }, [selectedFilters, setSearchParams]);
 
-      if (category) {
-        queryParams.category = category;
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/categories",
+        );
+        setCategoryOptions(
+          response.data.map((cat: { id: number; name: string }) => ({
+            name: cat.name,
+            category: cat.id,
+          })),
+        );
+      } catch (error) {
+        console.error("Erro ao buscar categorias:", error);
       }
+    };
 
-      const response = await axios.get("http://localhost:3000/api/products", {
-        params: queryParams,
-      });
-      return response.data;
-    },
-    {
-      refetchOnWindowFocus: false,
-      keepPreviousData: true,
-    },
-  );
+    fetchCategories();
+  }, []);
+
+  const handleFilterUpdate = (filters: FilterProps) => {
+    setSelectedFilters(filters);
+  };
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -83,12 +112,17 @@ const Shop: React.FC<FilterProps> = ({
           <span>Shop</span>
         </div>
       </div>
-      <Filter />
+      <Filter
+        onFiltersChange={handleFilterUpdate}
+        categoryOptions={categoryOptions}
+      />
       <main className="container mx-auto mt-8 px-4">
-        {Array.isArray(products) && products.length > 0 ? (
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : Array.isArray(products) && products.length > 0 ? (
           <ProductList products={products} />
         ) : (
-          <p>Loading...</p>
+          <p>No products found.</p>
         )}
         <Pagination
           currentPage={currentPage}
@@ -101,5 +135,6 @@ const Shop: React.FC<FilterProps> = ({
     </div>
   );
 };
+//todo: adicionar loading spinner
 
 export default Shop;
