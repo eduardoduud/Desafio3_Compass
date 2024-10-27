@@ -29,8 +29,7 @@ const ProductPage: React.FC = () => {
         setProduct(response.data);
         setSelectedImage(response.data.imageLink);
 
-        // Buscar produtos da mesma categoria
-        const categoryId = response.data.category.id; // Assumindo que o id da categoria está disponível
+        const categoryId = response.data.category.id;
         const relatedResponse = await axios.get(
           `http://localhost:3000/api/products?limit=4&offset=0&order=asc&category[]=${categoryId}`,
         );
