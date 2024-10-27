@@ -15,9 +15,7 @@ const Categories: React.FC<Category> = () => {
   }, []);
 
   const handleCategoryClick = (categoryId?: number) => {
-    navigate(
-      `/shop?category=${categoryId}&pagination[limit]=16&pagination[offset]=0`,
-    );
+    navigate(`/shop`, { state: { category: categoryId } });
   };
 
   return (
