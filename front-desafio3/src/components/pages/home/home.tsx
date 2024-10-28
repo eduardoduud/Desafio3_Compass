@@ -45,15 +45,21 @@ const Home: React.FC = () => {
         </div>
       ) : (
         <>
-          <div>
+          <div className="relative">
             <img
-              className="object-cover"
+              className="h-full w-full object-cover"
               src="/src/assets/images/homeHero.svg"
               alt=""
             />
+            <div className="bg-features-200 w-1-3 h-1-2 top-1-2 left-1-2 absolute inset-0 flex items-center justify-center overflow-hidden rounded-t-lg border-none bg-opacity-50 p-6">
+              <span className="inline-block h-full py-4 align-top text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+                tellus, luctus nec ullamcorper mattis.
+              </span>
+            </div>
           </div>
-          <section className="mb-18 bg-white py-4">
-            <h1 className="mb-12 text-center text-3xl font-bold">
+          <section className="mb-18 relative z-10 bg-white py-4">
+            <h1 className="mb-12 mt-12 text-center text-3xl font-bold">
               Browse The Range
             </h1>
             <Categories />
