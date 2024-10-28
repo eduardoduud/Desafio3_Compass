@@ -23,7 +23,7 @@ const Categories: React.FC<Category> = () => {
       {categories.map((category) => (
         <a
           key={category.id}
-          className="w-381 h-480 flex flex-wrap justify-center rounded-lg"
+          className="w-381 h-480 category-card flex flex-wrap justify-center rounded-lg"
           onClick={() => handleCategoryClick(category.id)}
         >
           <img

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ProductList from "../../shared/productList";
 import Features from "../../shared/features";
 import { FaChevronRight } from "react-icons/fa";
@@ -95,9 +95,12 @@ const Shop: React.FC = () => {
     fetchCategories();
   }, []);
 
-  const handleFilterUpdate = (filters: FilterProps) => {
-    setSelectedFilters(filters);
-  };
+  const handleFilterUpdate = useCallback(
+    (filters: FilterProps) => {
+      setSelectedFilters(filters);
+    },
+    [setSelectedFilters],
+  );
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -114,14 +117,17 @@ const Shop: React.FC = () => {
         className="h-316 flex flex-col items-center justify-center"
         style={styles}
       >
-        <h1 className="text-center text-4xl font-medium">SHOP</h1>
-        <div className="flex flex-row items-center justify-center gap-1">
-          <span className="font-bold">Home</span>
+        <h1 className="text-center text-5xl font-medium">Shop</h1>
+        <div className="mt-4 flex flex-row items-center justify-center gap-1">
+          <a href="/" className="font-medium">
+            Home
+          </a>
           <FaChevronRight />
           <span>Shop</span>
         </div>
       </div>
       <Filter
+        totalItems={products.length}
         onFiltersChange={handleFilterUpdate}
         categoryOptions={categoryOptions}
         onItemsPerPageChange={setItemsPerPage}

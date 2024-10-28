@@ -25,14 +25,16 @@ const ProductList: React.FC<{ products: Product[]; itemsPerPage: number }> = ({
               </span>
             )}
           </div>
-          <img
-            src={product.imageLink}
-            alt={product.name}
-            className="h-40 w-full object-cover"
-          />
-          <div className="mb-4 p-2">
+          <div className="image-container">
+            <img
+              src={product.imageLink}
+              alt={product.name}
+              className="aspect-auto h-full w-full object-fill"
+            />
+          </div>
+          <div className="h-145 mb-4 p-2">
             <h3 className="m-2 font-semibold">{product.name}</h3>
-            <p className="m-2 text-gray-400">{product.description}</p>
+            <p className="m-2 truncate text-gray-400">{product.description}</p>
             <span className="m-2 font-medium">
               $
               {product.price.toLocaleString("id-ID", {
