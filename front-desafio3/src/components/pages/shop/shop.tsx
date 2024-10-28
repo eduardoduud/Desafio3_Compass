@@ -9,7 +9,7 @@ import axios from "axios";
 import { useSearchParams, useLocation } from "react-router-dom";
 import GridLoader from "react-spinners/GridLoader";
 
-const Shop: React.FC<FilterProps> = () => {
+const Shop: React.FC = () => {
   const styles: React.CSSProperties = {
     backgroundImage: `url('src/assets/images/shopHero.svg')`,
     backgroundSize: "cover",
@@ -22,7 +22,6 @@ const Shop: React.FC<FilterProps> = () => {
   const [selectedFilters, setSelectedFilters] = useState<FilterProps>({
     sortOrder: "asc",
     category: initialCategory ? [initialCategory] : [],
-    limit: 16,
     offset: 0,
   });
   const [categoryOptions, setCategoryOptions] = useState<
@@ -31,6 +30,7 @@ const Shop: React.FC<FilterProps> = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [itemsPerPage, setItemsPerPage] = useState(16);
   useEffect(() => {
     const fetchProducts = async () => {
       if (!selectedFilters) return;
@@ -41,8 +41,8 @@ const Shop: React.FC<FilterProps> = () => {
         const queryParams = {
           sortOrder: selectedFilters.sortOrder,
           category: selectedFilters.category,
-          limit: selectedFilters.limit,
-          offset: (currentPage - 1) * selectedFilters.limit,
+          limit: selectedFilters?.limit,
+          offset: (currentPage - 1) * itemsPerPage,
         };
 
         const response = await axios.get("http://localhost:3000/api/products", {
@@ -58,7 +58,7 @@ const Shop: React.FC<FilterProps> = () => {
     };
 
     fetchProducts();
-  }, [selectedFilters, currentPage, selectedFilters?.limit]);
+  }, [selectedFilters, currentPage, selectedFilters?.limit, itemsPerPage]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -101,6 +101,7 @@ const Shop: React.FC<FilterProps> = () => {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    window.scrollTo(0, 0);
   };
 
   if (error) {
@@ -123,6 +124,7 @@ const Shop: React.FC<FilterProps> = () => {
       <Filter
         onFiltersChange={handleFilterUpdate}
         categoryOptions={categoryOptions}
+        onItemsPerPageChange={setItemsPerPage}
       />
       <main className="container mx-auto mt-8 px-4">
         {isLoading ? (
@@ -130,14 +132,13 @@ const Shop: React.FC<FilterProps> = () => {
             <GridLoader size={30} color="#eab308" />
           </div>
         ) : Array.isArray(products) && products.length > 0 ? (
-          <ProductList products={products} />
+          <ProductList products={products} itemsPerPage={itemsPerPage} />
         ) : (
           <p>No products found.</p>
         )}
         <Pagination
           currentPage={currentPage}
-          //itemsPerPage={itemsPerPage}
-          totalPages={5} //Math.ceil(products.length / itemsPerPage)}
+          totalPages={Math.ceil(products.length / itemsPerPage)}
           onPageChange={handlePageChange}
         />
       </main>
@@ -145,6 +146,5 @@ const Shop: React.FC<FilterProps> = () => {
     </div>
   );
 };
-//todo: adicionar loading spinner
 
 export default Shop;

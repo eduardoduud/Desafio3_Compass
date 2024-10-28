@@ -3,18 +3,23 @@ import { getIconPath } from "../utils/getIcon";
 import { RxDividerVertical } from "react-icons/rx";
 import { HiOutlineX } from "react-icons/hi";
 import { FilterProps } from "../../types/filterProps";
+import { useLocation } from "react-router-dom";
 
 const Filter: React.FC<{
   categoryOptions: { name: string; category: number }[];
   onFiltersChange: (filters: FilterProps) => void;
-}> = ({ categoryOptions, onFiltersChange }) => {
+  onItemsPerPageChange: (itemsPerPage: number) => void;
+}> = ({ categoryOptions, onFiltersChange, onItemsPerPageChange }) => {
   const [isFilterDropdownVisible, setFilterDropdownVisible] = useState(false);
+  const location = useLocation();
+  const initialCategory = location.state?.category || [];
   const [filters, setFilters] = useState<FilterProps>({
-    limit: 16,
     offset: 0,
     sortOrder: "asc",
-    category: [],
+    category: initialCategory ? [initialCategory] : [],
   });
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(16);
 
   const toggleDropdown = () => {
     setFilterDropdownVisible(!isFilterDropdownVisible);
@@ -33,12 +38,8 @@ const Filter: React.FC<{
   };
 
   const handleTotalItensChange = (limit: number) => {
-    setFilters((prevFilters) => {
-      const updatedFilters = { ...prevFilters };
-      updatedFilters.limit = limit;
-      onFiltersChange(updatedFilters);
-      return updatedFilters;
-    });
+    setItemsPerPage(limit);
+    onItemsPerPageChange(itemsPerPage);
   };
 
   const handleSortOrderChange = (sortOrder: string) => {
@@ -97,7 +98,7 @@ const Filter: React.FC<{
         <input
           className="h-55 w-55 bg-white text-center"
           type="number"
-          value={filters.limit}
+          value={itemsPerPage}
           onChange={(e) => handleTotalItensChange(parseInt(e.target.value))}
         />
         <span>Sort by</span>

@@ -17,6 +17,7 @@ const Home: React.FC = () => {
     const fetchProducts = async () => {
       if (isMounted) {
         const filters: FilterProps = {
+          category: [],
           filterDiscounted: true,
           limit: 8,
           offset: 0,

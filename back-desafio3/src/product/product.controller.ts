@@ -32,7 +32,10 @@ export class ProductController {
     filter.filterDiscounted = filter.filterDiscounted
       ? String(filter.filterDiscounted) === 'true'
       : false;
-    filter.limit = Number(filter.limit);
+    if (filter.limit) {
+      filter.limit = Number(filter.limit);
+    }
+
     filter.offset = Number(filter.offset);
   }
 }
