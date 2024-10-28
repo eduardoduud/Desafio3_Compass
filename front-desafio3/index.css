@@ -92,8 +92,31 @@ input[type="radio"] {
   all: unset;
 }
 
+input::placeholder {
+  color: #9f9f9f;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input:focus {
+  outline: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+.image-container {
+  height: 401px !important;
+}
+
+.image-product-details {
+  width: 423px;
+  height: 500px;
 }
