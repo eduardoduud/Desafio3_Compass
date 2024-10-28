@@ -1,16 +1,16 @@
 import { getButtonPath } from "../../utils/getIcon";
 const Header = () => {
   return (
-    <header className="flex flex-row items-center justify-between h-100">
+    <header className="h-100 flex flex-row items-center justify-between px-14">
       <div className="flex flex-row items-center gap-1">
         <img
           src="/src/assets/images/logo.svg"
           alt="Logo"
           className="h-50 w-32"
         />
-        <h1 className="text-3xl font-bold font-mont">Furniro</h1>
+        <h1 className="font-mont text-3xl font-bold">Furniro</h1>
       </div>
-      <div className="flex flex-row font-medium text-sm gap-18">
+      <div className="gap-18 flex flex-row text-sm font-medium">
         <a href="/">Home</a>
         <a href="/shop">Shop</a>
         <a>About</a>
