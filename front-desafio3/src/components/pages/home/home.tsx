@@ -60,9 +60,9 @@ const Home: React.FC = () => {
           </section>
           <section className="container mx-auto mt-12 px-4">
             <h1 className="text-center text-3xl font-bold">Our Products</h1>
-            <ProductList products={products} />
+            <ProductList products={products} itemsPerPage={8} />
             <div className="my-9 flex w-full items-center justify-center">
-              <button className="border-golden text-card-button border border-solid px-12 py-2">
+              <button className="border-golden show-more text-card-button border border-solid px-12 py-2">
                 <a href="/shop">Show More</a>
               </button>
             </div>

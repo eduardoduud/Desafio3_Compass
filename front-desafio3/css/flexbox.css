@@ -50,6 +50,16 @@
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
 
 .object-cover {
   object-fit: cover;
@@ -59,4 +69,8 @@
 }
 .object-contain {
   object-fit: contain;
+}
+
+.basis-1-2 {
+  flex-basis: 50%;
 }

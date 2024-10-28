@@ -23,7 +23,9 @@
 }
 
 .details-button:hover {
-  background-color: #d4d4d4;
+  background-color: #b88e2f;
+  transition: background-color 0.2s ease-in-out;
+  color: black;
 }
 
 .hover-content div button {
@@ -41,4 +43,49 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.show-more {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.show-more:hover {
+  background-color: #b88e2f;
+  transition: background-color 0.2s ease-in-out;
+  color: black;
+}
+
+.category-card {
+  transition: scale 0.2s ease-in-out;
+}
+
+.category-card:hover {
+  scale: 1.05;
+  transition: scale 0.2s ease-in-out;
+}
+
+.miniature-product {
+  transition: scale 0.2s ease-in-out;
+}
+
+.miniature-product:hover {
+  scale: 1.1;
+  transition: scale 0.2s ease-in-out;
+}
+
+.email-subscribe {
+  transition: color 0.2s ease-in-out;
+}
+
+.email-subscribe:hover {
+  color: #b88e2f;
+  transition: color 0.2s ease-in-out;
+}
+.general-link {
+  transition: color 0.2s ease-in-out;
+}
+
+.general-link:hover {
+  color: #b88e2f;
+  transition: color 0.2s ease-in-out;
 }

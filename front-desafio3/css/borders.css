@@ -26,6 +26,9 @@
 .border-t {
   border-top-width: 1px !important;
 }
+.border-black {
+  border-color: #000;
+}
 .border-gray-300 {
   border-color: #d9d9d9;
 }

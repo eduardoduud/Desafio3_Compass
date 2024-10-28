@@ -110,34 +110,36 @@ const ProductPage: React.FC = () => {
         <FaChevronRight />
         <span>{product.name}</span>
       </div>
-      <div className="mt-8 flex justify-center">
+      <div className="gap-18 mt-8 flex justify-center">
         {/* Imagens laterais */}
-        <div className="flex flex-col gap-4">
-          {product.otherImagesLink?.map((image, index) => (
-            <button
-              key={index}
-              className="border-furniro h-20 w-20 overflow-hidden rounded-lg border border-solid"
-            >
-              <img
+        <div className="basis-1-2 flex flex-row justify-end">
+          <div className="flex flex-col gap-4">
+            {product.otherImagesLink?.map((image, index) => (
+              <button
                 key={index}
-                src={image}
-                alt={product.name}
-                className="bg-button h-full w-full object-cover"
-                onClick={() => setSelectedImage(image)}
-              />
-            </button>
-          ))}
-        </div>
-        {/* Imagem principal */}
-        <div className="px-6">
-          <img
-            src={selectedImage}
-            alt={product.name}
-            className="bg-button h-auto w-full rounded-lg object-cover"
-          />
+                className="border-furniro miniature-product h-20 w-20 overflow-hidden rounded-lg border border-solid"
+              >
+                <img
+                  key={index}
+                  src={image}
+                  alt={product.name}
+                  className="bg-button h-full w-full object-cover"
+                  onClick={() => setSelectedImage(image)}
+                />
+              </button>
+            ))}
+          </div>
+          {/* Imagem principal */}
+          <div className="image-product-details px-6">
+            <img
+              src={selectedImage}
+              alt={product.name}
+              className="bg-button h-auto w-full rounded-lg object-cover"
+            />
+          </div>
         </div>
         {/* Detalhes do produto */}
-        <div className="flex flex-col space-y-4">
+        <div className="basis-1-2 flex flex-col space-y-4">
           <h1 className="font-regular text-3xl">{product.name}</h1>
           <p className="text-xl font-semibold text-gray-400">
             $ {product.price}
@@ -148,9 +150,10 @@ const ProductPage: React.FC = () => {
               {"★".repeat(4)}
               {"☆"}
             </span>
+            <hr className="mx-4 h-8" />
             <span className="ml-2 text-gray-400">5 Customer Reviews</span>
           </div>
-          <p className="text-gray-600">{product.description}</p>
+          <p className="w-3-5 mt-3 text-gray-600">{product.description}</p>
           {/* Tamanho e cores */}
           <span className="mt-4 text-gray-400">Size</span>
           <div className="flex items-baseline">
@@ -223,40 +226,39 @@ const ProductPage: React.FC = () => {
               + Compare
             </button>
           </div>
+          <div className="mt-10 flex w-full flex-col border-t border-solid border-gray-300 py-12 text-gray-400">
+            <p className="m-2 flex justify-start gap-4">
+              <span className="w-91">SKU</span>
+              <span>:</span>
+              <span>SS001</span>
+            </p>
+            <p className="m-2 flex justify-start gap-4">
+              <span className="w-91">Category</span>
+              <span>:</span>
+              <span>{product.category.name}</span>
+            </p>
+            <p className="m-2 flex justify-start gap-4">
+              <span className="w-91">Tags</span>
+              <span>:</span>
+              <span>Sofa, Chair, Home, Shop</span>
+            </p>
+            <p className="m-2 flex items-center justify-start gap-4">
+              <span className="w-91">Share</span>
+              <span>:</span>
+              <a href="#">
+                <FaFacebook className="text-black" />
+              </a>
+              <a href="#">
+                <FaLinkedin className="text-black" />
+              </a>
+              <a href="#">
+                <AiFillTwitterCircle className="text-black" />
+              </a>
+            </p>
+          </div>
         </div>
       </div>
-      <div className="flex justify-end border-b border-solid border-gray-300">
-        <div className="w-2-5 flex flex-col border-t border-solid border-gray-300 py-12 text-gray-400">
-          <p className="m-2 flex justify-start gap-4">
-            <span className="w-91">SKU</span>
-            <span>:</span>
-            <span>SS001</span>
-          </p>
-          <p className="m-2 flex justify-start gap-4">
-            <span className="w-91">Category</span>
-            <span>:</span>
-            <span>{product.category.name}</span>
-          </p>
-          <p className="m-2 flex justify-start gap-4">
-            <span className="w-91">Tags</span>
-            <span>:</span>
-            <span>Sofa, Chair, Home, Shop</span>
-          </p>
-          <p className="m-2 flex items-center justify-start gap-4">
-            <span className="w-91">Share</span>
-            <span>:</span>
-            <a href="#">
-              <FaFacebook className="text-black" />
-            </a>
-            <a href="#">
-              <FaLinkedin className="text-black" />
-            </a>
-            <a href="#">
-              <AiFillTwitterCircle className="text-black" />
-            </a>
-          </p>
-        </div>
-      </div>
+      <div className="flex justify-end border-b border-solid border-gray-300"></div>
       {/* Descrição e Informações Adicionais */}
       <div className="mt-8">
         <div className="flex justify-center gap-4">
@@ -274,7 +276,7 @@ const ProductPage: React.FC = () => {
         <ProductList products={relatedProducts} itemsPerPage={itemsPerPage} />
         <div className="my-9 flex w-full items-center justify-center">
           <button
-            className="border-golden text-card-button border border-solid px-12 py-2"
+            className="border-golden show-more text-card-button border border-solid px-12 py-2"
             onClick={handleShowMore}
           >
             Show More
