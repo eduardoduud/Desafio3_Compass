@@ -15,6 +15,7 @@ const ProductPage: React.FC = () => {
   const [product, setProduct] = useState<Product>();
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [offset, setOffset] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
   const [clickCount, setClickCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,10 +49,14 @@ const ProductPage: React.FC = () => {
     fetchProduct();
   }, [productId]);
 
-  const loadMoreProducts = async (categoryId: number, newOffset: number) => {
+  const loadMoreProducts = async (
+    categoryId: number,
+    newItemsPerPage: number,
+    newOffset: number,
+  ) => {
     try {
       const relatedResponse = await axios.get(
-        `http://localhost:3000/api/products?limit=4&offset=${newOffset}&order=asc&category[]=${categoryId}`,
+        `http://localhost:3000/api/products?limit=${newItemsPerPage}&offset=${newOffset}&order=asc&category[]=${categoryId}`,
       );
       setRelatedProducts((prevProducts) => [
         ...prevProducts,
@@ -66,10 +71,12 @@ const ProductPage: React.FC = () => {
     if (product && product.category && product.category.id !== undefined) {
       if (clickCount === 1) {
         navigate(`/shop`, { state: { category: product.category.id } });
+        window.scrollTo(0, 0);
       } else {
         setClickCount(clickCount + 1);
         setOffset((prevOffset) => prevOffset + 4);
-        loadMoreProducts(product.category.id, offset + 4);
+        setItemsPerPage((prevItemsPerPage) => prevItemsPerPage + 4);
+        loadMoreProducts(product.category.id, itemsPerPage + 4, offset + 4);
       }
     }
   };
@@ -264,7 +271,7 @@ const ProductPage: React.FC = () => {
       </div>
       <section className="container mx-auto mt-12 border-b border-solid border-gray-300 px-4">
         <h1 className="text-center text-3xl font-bold">Related Products</h1>
-        <ProductList products={relatedProducts} />
+        <ProductList products={relatedProducts} itemsPerPage={itemsPerPage} />
         <div className="my-9 flex w-full items-center justify-center">
           <button
             className="border-golden text-card-button border border-solid px-12 py-2"

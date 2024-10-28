@@ -1,4 +1,13 @@
 /* Tamanhos */
+.max-width-pagination {
+  max-width: 60%;
+  overflow-x: hidden;
+}
+
+.w-screen {
+  width: 100vw;
+}
+
 .w-auto {
   width: auto;
 }
@@ -49,6 +58,9 @@
 }
 .w-12 {
   width: 3rem; /* 48px */
+}
+.min-w-12 {
+  min-width: 3rem; /* 48px */
 }
 .w-13 {
   width: 3.25rem; /* 50px */

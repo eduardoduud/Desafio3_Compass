@@ -5,15 +5,13 @@ import { GoArrowSwitch } from "react-icons/go";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { Product } from "../../types/product";
 
-interface ProductListProps {
-  products: Product[];
-}
-//todo: mover a interface pra /types
-
-const ProductList: React.FC<ProductListProps> = ({ products }) => {
+const ProductList: React.FC<{ products: Product[]; itemsPerPage: number }> = ({
+  products,
+  itemsPerPage,
+}) => {
   return (
     <div className="mt-6 grid grid-cols-4 gap-6 bg-white py-8">
-      {products.map((product) => (
+      {products.slice(0, itemsPerPage).map((product) => (
         <div key={product.id} className="product-card relative bg-gray-100">
           <div className="absolute right-2 top-2 flex flex-row">
             {product.isNew && (
@@ -54,11 +52,9 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
           </div>
           <div className="hover-content">
             <Link
-              /* todo: pesquisar como fazer o link scrollar a página até o topo
-            solução mais rápida: trocar pra tag <a> 
-            solução 2: button com navigate*/
               to={`/products/${product.id}`}
               className="details-button w-1-2 text-card-button py-2-5 mb-4 flex justify-center bg-white px-5"
+              onClick={() => window.scrollTo(product.id, 0)}
             >
               See Details
             </Link>
