@@ -89,6 +89,9 @@
 .h-full {
   height: 100%;
 }
+.h-1-2 {
+  height: 50%;
+}
 .h-max {
   height: max-content;
 }

@@ -7,7 +7,6 @@ import Header from "./components/pages/root/header";
 import Footer from "./components/pages/root/footer";
 import Shop from "./components/pages/shop/shop";
 import ProductPage from "./components/pages/product/productPage";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 const router = createBrowserRouter([
   {
@@ -27,14 +26,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-const queryClient = new QueryClient();
-
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Header />
-      <RouterProvider router={router} />
-      <Footer />
-    </QueryClientProvider>
+    <Header />
+    <RouterProvider router={router} />
+    <Footer />
   </React.StrictMode>,
 );
